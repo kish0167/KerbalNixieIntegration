@@ -1,10 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Threading;
+using UnityEngine;
 
 namespace KerbalNixieIntegration
 {
     [KSPAddon(KSPAddon.Startup.MainMenu, false)]
     public class NixieIntegrationPatch : MonoBehaviour
     {
-        // Startups static? clock service
+        private void Start()
+        {
+            In12BService.Instantiate();
+            _ = In12BService.Instance.Run(new CancellationToken());
+        }
     }
 }

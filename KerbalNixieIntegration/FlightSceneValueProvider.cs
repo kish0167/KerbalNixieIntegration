@@ -6,22 +6,22 @@ using KSP.UI.Screens.Flight;
 namespace KerbalNixieIntegration
 {
     [KSPAddon(KSPAddon.Startup.Flight, false)]
-    public class FlightSceneValueProvider : MonoBehaviour // : IFormattedStringProvider
+    public class FlightSceneValueProvider : MonoBehaviour , IFormattedStringProvider
     {
         public static event Action<FlightSceneValueProvider> OnCreated;
         public static event Action<FlightSceneValueProvider> OnDestroyed;
         
         private void Start()
         {
-            OnCreated?.Invoke(this);
+            In12BService.Instance.SetProvider(this);
         }
 
         private void OnDestroy()
         {
-            OnDestroyed?.Invoke(this);
+            In12BService.Instance.ResetProvider();
         }
 
-        public string GetString()
+        public string GetValueString()
         {
             double number = GetCurrentVesselSpeedInCurrentMode();
             
@@ -112,5 +112,11 @@ namespace KerbalNixieIntegration
 
             return value;
         }
+
+        public void Init()
+        {
+            
+        }
+        
     }
 }
