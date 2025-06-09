@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using UnityEngine;
 using KSP.UI.Screens.Flight;
 
@@ -7,6 +8,18 @@ namespace KerbalNixieIntegration
     [KSPAddon(KSPAddon.Startup.Flight, false)]
     public class FlightSceneValueProvider : MonoBehaviour // : IFormattedStringProvider
     {
+        public static event Action<FlightSceneValueProvider> OnCreated;
+        public static event Action<FlightSceneValueProvider> OnDestroyed;
+        
+        private void Start()
+        {
+            OnCreated?.Invoke(this);
+        }
+
+        private void OnDestroy()
+        {
+            OnDestroyed?.Invoke(this);
+        }
 
         public string GetString()
         {
@@ -24,7 +37,7 @@ namespace KerbalNixieIntegration
             string fraction = FormatFractionString(numberSplit.Length > 1 ? numberSplit[1] : "0");
             
             
-            if (number > 1f)
+            if (number > 1d)
             {
                 str = integer + "-" + fraction.Substring(0,2) + "04" + str;
             }
@@ -90,8 +103,7 @@ namespace KerbalNixieIntegration
                     
                     if (target != null)
                     {
-                        Vector3 relativeVelocity = activeVessel.obt_velocity - target.GetObtVelocity();
-                        value = relativeVelocity.magnitude;
+                        value = (activeVessel.obt_velocity - target.GetObtVelocity()).magnitude;
                     }
                     
                     break;
