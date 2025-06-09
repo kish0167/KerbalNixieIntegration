@@ -5,6 +5,6 @@ namespace KerbalNixieIntegration
     [KSPAddon(KSPAddon.Startup.MainMenu, false)]
     public class NixieIntegrationPatch : MonoBehaviour
     {
-        // Startups clock service
+        // Startups static? clock service
     }
 }
