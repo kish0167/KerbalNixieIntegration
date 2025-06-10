@@ -4,8 +4,8 @@ namespace KerbalNixieIntegration;
 
 public class IdleAnimationProvider : IFormattedStringProvider
 {
-    private string[] _anim =
-    {
+    private readonly string[] _anim =
+    [
         "1-------",
         "-1------",
         "--1-----",
@@ -19,8 +19,8 @@ public class IdleAnimationProvider : IFormattedStringProvider
         "----1---",
         "---1----",
         "--1-----",
-        "-1------",
-    };
+        "-1------"
+    ];
 
     private int _counter = 0;
     
@@ -33,11 +33,11 @@ public class IdleAnimationProvider : IFormattedStringProvider
     {
         _counter++;
         
-        if (_counter > 41)
+        if (_counter > 13)
         {
             _counter = 0;
         }
         
-        return _anim[_counter / 3] + "00end.\n";
+        return _anim[_counter] + "00end.\n";
     }
 }

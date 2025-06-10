@@ -8,7 +8,9 @@ public class BteSerialClient
 {
     private SerialPort _serialPort;
     private bool _connected = false;
-    
+
+    public bool Connected => _connected;
+
     public async Task Connect()
     {
         await FindAndConnectPort();
@@ -41,6 +43,11 @@ public class BteSerialClient
             _serialPort?.Close();
             Task.Run(FindAndConnectPort);
         }
+    }
+
+    public async Task SendStringAsync(string msg)
+    {
+        SendString(msg);
     }
 
     private void CreateSerialPort(int number)
@@ -85,6 +92,8 @@ public class BteSerialClient
             _serialPort?.Open();
             await Task.Delay(500);
             SendTestMessage();
+            _serialPort.ReadTimeout = 60000;
+            _serialPort.WriteTimeout = 60000;
             return true;
         }
         catch

@@ -8,9 +8,6 @@ namespace KerbalNixieIntegration
     [KSPAddon(KSPAddon.Startup.Flight, false)]
     public class FlightSceneValueProvider : MonoBehaviour , IFormattedStringProvider
     {
-        public static event Action<FlightSceneValueProvider> OnCreated;
-        public static event Action<FlightSceneValueProvider> OnDestroyed;
-        
         private void Start()
         {
             In12BService.Instance.SetProvider(this);
@@ -27,7 +24,7 @@ namespace KerbalNixieIntegration
             
             if (number < 0)
             {
-                return "9999999900end.\n";
+                return "2222222200end.\n";
             }
             
             string str = "end.\n";
